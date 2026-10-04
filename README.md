@@ -1,58 +1,53 @@
-# NexaFlow — React + TypeScript Business Website
+# React + TypeScript Portfolio + Business Model
 
-A responsive, animated business website template inspired by the supplied visual reference, rebuilt as an original React + TypeScript UI.
+This project merges the original `portfolio` HTML/CSS/JS portfolio into the existing Vite React + TypeScript business website.
+
+## Routes
+
+- `/` — portfolio
+- `/business_model` — Business Website project demo
+- `/bussiness_model` — legacy redirect to `/business_model`
 
 ## Stack
+
 - React + TypeScript + Vite
+- React Router
 - Framer Motion
 - Supabase
 - Cloudflare Pages
-- GitHub
 
-## Local setup
+## Run
 
 ```bash
 npm install
-copy .env.example .env.local
 npm run dev
 ```
 
-Set your Supabase values in `.env.local`, then open `/bussiness_model`.
-
-## Supabase
-1. Create a Supabase project.
-2. Open SQL Editor.
-3. Run `supabase/schema.sql`.
-4. Copy Project URL and Publishable Key into `.env.local`.
-5. Never put a Supabase secret/service-role key in frontend code.
-
-## WhatsApp
-Set `VITE_WHATSAPP_NUMBER` to your full WhatsApp number with country code and no `+`, spaces or punctuation.
-
-## GitHub
+## Build
 
 ```bash
-git init
-git add .
-git commit -m "Initial business model website"
-git branch -M main
-git remote add origin https://github.com/YOUR_USERNAME/business-model-react.git
-git push -u origin main
+npm run build
 ```
 
 ## Cloudflare Pages
+
 Build command: `npm run build`
+
 Output directory: `dist`
-Production branch: `main`
 
-Add the same `VITE_SUPABASE_URL`, `VITE_SUPABASE_PUBLISHABLE_KEY` and `VITE_WHATSAPP_NUMBER` values in Cloudflare Pages environment variables.
+The included `public/_redirects` keeps client-side routes working after refresh.
 
-## URL
-The app is intentionally routed to:
+## Environment variables
 
-`https://suryadevs.in/bussiness_model`
+Copy `.env.example` values into your Cloudflare Pages project settings.
 
-If you deploy it as a separate Cloudflare Pages project, the easiest production setup is to make it the project serving `suryadevs.in`. If `suryadevs.in` already serves another app, keep both experiences in one React project and add this route to that app, or use Cloudflare routing/proxy rules.
+Portfolio form expects:
+- `VITE_PORTFOLIO_SUPABASE_URL`
+- `VITE_PORTFOLIO_SUPABASE_ANON_KEY`
 
-## Design
-The uploaded reference was used only as visual direction: dark premium UI, neon accent, cards, stats, services, testimonials, CTA and strong hero composition. Replace demo copy/art with your client brand and licensed photos before commercial use.
+Business page expects:
+- `VITE_SUPABASE_URL`
+- `VITE_SUPABASE_PUBLISHABLE_KEY`
+- `VITE_WHATSAPP_NUMBER`
+
+The portfolio's existing file upload flow uses the `requirements` Storage bucket and `inquiries` table. Make sure those exist in its Supabase project.

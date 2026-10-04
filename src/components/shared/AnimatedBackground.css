@@ -1,0 +1,107 @@
+/* ============================================================
+   Shared animated background (used by "/" and "/business_model")
+   Palette is switched with the .ab-portfolio / .ab-business class.
+   ============================================================ */
+.ab-stage{
+  position:fixed; inset:0; z-index:0;
+  overflow:hidden; pointer-events:none;
+  --c1:34,211,238; --c2:99,102,241; --c3:168,85,247; --c4:52,211,153;
+  --grid:148,163,184; --grid-a:.07;
+  --vig:2,6,23;
+}
+.ab-stage.ab-business{
+  --c1:124,77,255; --c2:72,229,255; --c3:156,255,87; --c4:255,96,201;
+  --grid:124,77,255; --grid-a:.10;
+  --vig:6,7,16;
+}
+
+.ab-orb{
+  position:absolute; border-radius:50%;
+  filter:blur(90px); opacity:.55;
+  will-change:transform; mix-blend-mode:screen;
+}
+.ab-business .ab-orb{ opacity:.42; }
+
+.ab-orb-1{
+  width:min(620px,85vw); height:min(620px,85vw);
+  background:radial-gradient(circle at 30% 30%, rgba(var(--c1),.55), rgba(var(--c1),0) 70%);
+  top:-14%; left:-12%;
+  animation:ab-drift1 22s ease-in-out infinite;
+}
+.ab-orb-2{
+  width:min(700px,95vw); height:min(700px,95vw);
+  background:radial-gradient(circle at 60% 40%, rgba(var(--c2),.5), rgba(var(--c2),0) 70%);
+  bottom:-20%; right:-15%;
+  animation:ab-drift2 26s ease-in-out infinite;
+}
+.ab-orb-3{
+  width:min(520px,75vw); height:min(520px,75vw);
+  background:radial-gradient(circle at 50% 50%, rgba(var(--c3),.42), rgba(var(--c3),0) 70%);
+  top:38%; left:52%;
+  animation:ab-drift3 30s ease-in-out infinite;
+}
+.ab-orb-4{
+  width:min(420px,65vw); height:min(420px,65vw);
+  background:radial-gradient(circle at 50% 50%, rgba(var(--c4),.3), rgba(var(--c4),0) 70%);
+  top:8%; right:18%;
+  animation:ab-drift1 34s ease-in-out infinite reverse;
+}
+
+@keyframes ab-drift1{
+  0%,100%{ transform:translate3d(0,0,0) scale(1); }
+  33%   { transform:translate3d(90px,-70px,0) scale(1.16); }
+  66%   { transform:translate3d(-70px,55px,0) scale(.92); }
+}
+@keyframes ab-drift2{
+  0%,100%{ transform:translate3d(0,0,0) scale(1); }
+  40%   { transform:translate3d(-110px,-60px,0) scale(1.2); }
+  75%   { transform:translate3d(60px,70px,0) scale(.9); }
+}
+@keyframes ab-drift3{
+  0%,100%{ transform:translate3d(-50%,-50%,0) scale(1); }
+  50%   { transform:translate3d(-58%,-42%,0) scale(1.25); }
+}
+
+.ab-grid{
+  position:absolute; inset:-50%;
+  background-image:
+    linear-gradient(rgba(var(--grid),var(--grid-a)) 1px, transparent 1px),
+    linear-gradient(90deg, rgba(var(--grid),var(--grid-a)) 1px, transparent 1px);
+  background-size:64px 64px;
+  mask-image:radial-gradient(ellipse at 50% 40%, #000 0%, transparent 72%);
+  -webkit-mask-image:radial-gradient(ellipse at 50% 40%, #000 0%, transparent 72%);
+  animation:ab-gridPan 40s linear infinite;
+}
+@keyframes ab-gridPan{
+  0%{ transform:translate3d(0,0,0); }
+  100%{ transform:translate3d(64px,64px,0); }
+}
+
+.ab-canvas{ position:absolute; inset:0; width:100%; height:100%; }
+
+.ab-particles{ position:absolute; inset:0; }
+.ab-particle{
+  position:absolute; border-radius:50%;
+  animation:ab-floatUp linear infinite;
+}
+@keyframes ab-floatUp{
+  0%  { transform:translateY(0) scale(.6); opacity:0; }
+  12% { opacity:.9; }
+  85% { opacity:.7; }
+  100%{ transform:translateY(-105vh) scale(1.15); opacity:0; }
+}
+
+.ab-vignette{
+  position:absolute; inset:0;
+  background:radial-gradient(ellipse at 50% 0%, transparent 30%, rgba(var(--vig),.75) 100%);
+}
+
+@media (max-width:640px){
+  .ab-orb{ filter:blur(60px); opacity:.45; }
+  .ab-business .ab-orb{ opacity:.38; }
+}
+
+@media (prefers-reduced-motion: reduce){
+  .ab-orb,.ab-grid,.ab-particle{ animation:none !important; }
+  .ab-particles{ display:none; }
+}

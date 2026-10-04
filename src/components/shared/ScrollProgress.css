@@ -1,0 +1,13 @@
+.sp-bar{
+  position:fixed; top:0; left:0; right:0; height:3px;
+  transform:scaleX(0); transform-origin:0 50%;
+  z-index:100; will-change:transform;
+}
+.sp-portfolio{
+  background:linear-gradient(90deg,#22d3ee,#6366f1,#a855f7);
+  box-shadow:0 0 14px rgba(34,211,238,.7);
+}
+.sp-business{
+  background:linear-gradient(90deg,#7c4dff,#48e5ff,#9cff57);
+  box-shadow:0 0 14px rgba(124,77,255,.7);
+}

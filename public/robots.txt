@@ -1,0 +1,3 @@
+User-agent: *
+Allow: /
+Sitemap: https://suryadevs.in/sitemap.xml

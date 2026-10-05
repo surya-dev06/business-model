@@ -1,10 +1,12 @@
 import { FormEvent, useState } from 'react'
 import { supabase } from '../../../lib/supabase'
 import { iconMap } from './Icons'
+import { SuccessCard } from './SuccessCard'
 
 export function ContactForm() {
   const [busy, setBusy] = useState(false)
   const [message, setMessage] = useState('')
+  const [sent, setSent] = useState<{ name: string; time: string; ref: string } | null>(null)
   const [form, setForm] = useState({ name: '', email: '', phone: '', business: '', service: 'Business website', message: '' })
 
   // const whatsapp = () => {
@@ -32,7 +34,15 @@ export function ContactForm() {
     setBusy(false)
     if (error) setMessage('Something went wrong. Please try WhatsApp instead.')
     else {
-      setMessage('Thanks! Your enquiry was received. We will get back to you soon.')
+      // setMessage('Thanks! Your enquiry was received. We will get back to you soon.')
+      setSent({
+        name: form.name,
+        ref: Date.now().toString().slice(-8),
+        time: new Date().toLocaleString('en-IN', {
+          day: '2-digit', month: 'short', year: 'numeric',
+          hour: '2-digit', minute: '2-digit', second: '2-digit', hour12: true,
+        }),
+      })
       setForm({ name: '', email: '', phone: '', business: '', service: 'Business website', message: '' })
     }
   }
@@ -56,6 +66,8 @@ export function ContactForm() {
       <button className="btn primary" disabled={busy}>{busy ? 'Sending...' : 'Send Enquiry'} <iconMap.Send size={17}/></button>
       <button type="button" className="btn whatsapp" onClick={whatsapp}><iconMap.MessageCircle size={18}/> WhatsApp</button>
     </div>
-    {message && <p className="form-message">{message}</p>}
+    {/* {message && <p className="form-message">{message}</p>} */}
+    {message && <p className="form-message" role="alert">{message}</p>}
+    {sent && <SuccessCard name={sent.name} time={sent.time} refId={sent.ref} onClose={() => setSent(null)} />}
   </form>
 }

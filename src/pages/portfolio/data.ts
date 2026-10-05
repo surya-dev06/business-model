@@ -43,30 +43,58 @@ type Accent = {
   cta: string
 }
 
-export const ACCENTS: Record<'cyan' | 'indigo' | 'purple', Accent> = {
+// Tailwind needs full class names in the source, so they are spelled out here:
+export const ACCENTS = {
+
   cyan: {
-    iconBox: 'bg-cyan-500/10 border-cyan-500/25 text-cyan-400',
-    price: 'text-cyan-400',
-    check: 'text-cyan-400',
-    cta: 'border-cyan-500/40 text-cyan-400 hover:bg-cyan-500 hover:text-slate-950',
+    iconBox: 'bg-cyan-500/15 border-cyan-400/40 text-cyan-300',
+    price: 'text-cyan-300', check: 'text-cyan-300',
+    cta: 'border-cyan-400/50 text-cyan-300 hover:bg-cyan-400 hover:text-slate-950',
   },
-  indigo: {
-    iconBox: 'bg-indigo-500/10 border-indigo-500/25 text-indigo-400',
-    price: 'text-indigo-400',
-    check: 'text-indigo-400',
-    cta: 'border-indigo-500/40 text-indigo-400 hover:bg-indigo-500 hover:text-slate-950',
+  violet: {
+    iconBox: 'bg-violet-500/15 border-violet-400/40 text-violet-300',
+    price: 'text-violet-300', check: 'text-violet-300',
+    cta: 'border-violet-400/50 text-violet-300 hover:bg-violet-400 hover:text-slate-950',
   },
-  purple: {
-    iconBox: 'bg-purple-500/10 border-purple-500/25 text-purple-400',
-    price: 'text-purple-400',
-    check: 'text-purple-400',
-    cta: 'border-purple-500/40 text-purple-400 hover:bg-purple-500 hover:text-slate-950',
+  pink: {
+    iconBox: 'bg-pink-500/15 border-pink-400/40 text-pink-300',
+    price: 'text-pink-300', check: 'text-pink-300',
+    cta: 'border-pink-400/50 text-pink-300 hover:bg-pink-400 hover:text-slate-950',
   },
+  amber: {
+    iconBox: 'bg-amber-500/15 border-amber-400/40 text-amber-300',
+    price: 'text-amber-300', check: 'text-amber-300',
+    cta: 'border-amber-400/50 text-amber-300 hover:bg-amber-400 hover:text-slate-950',
+   },
 }
+
+export type AccentName = keyof typeof ACCENTS
+// export const ACCENTS: Record<'cyan' | 'indigo' | 'purple', Accent> = {
+//   cyan: {
+//     iconBox: 'bg-cyan-500/10 border-cyan-500/25 text-cyan-400',
+//     price: 'text-cyan-400',
+//     check: 'text-cyan-400',
+//     cta: 'border-cyan-500/40 text-cyan-400 hover:bg-cyan-500 hover:text-slate-950',
+//   },
+//   indigo: {
+//     iconBox: 'bg-indigo-500/10 border-indigo-500/25 text-indigo-400',
+//     price: 'text-indigo-400',
+//     check: 'text-indigo-400',
+//     cta: 'border-indigo-500/40 text-indigo-400 hover:bg-indigo-500 hover:text-slate-950',
+//   },
+//   purple: {
+//     iconBox: 'bg-purple-500/10 border-purple-500/25 text-purple-400',
+//     price: 'text-purple-400',
+//     check: 'text-purple-400',
+//     cta: 'border-purple-500/40 text-purple-400 hover:bg-purple-500 hover:text-slate-950',
+//   },
+// }
 
 export const SERVICES: {
   icon: LucideIcon
-  accent: keyof typeof ACCENTS
+  // accent: keyof typeof ACCENTS
+  accent: AccentName
+  image: string
   title: string
   price: string
   description: string
@@ -78,6 +106,7 @@ export const SERVICES: {
   {
     icon: Code,
     accent: 'cyan',
+    image: '/images/portfolio/web-app.svg',
     title: 'Web Application Offer',
     price: '₹5,000 – ₹8,000',
     description:
@@ -94,7 +123,9 @@ export const SERVICES: {
   },
   {
     icon: Smartphone,
-    accent: 'indigo',
+    // accent: 'indigo',
+    accent: 'violet',
+    image: '/images/portfolio/mobile-app.svg',
     title: 'Mobile Application Offer',
     price: '₹15,000 – ₹20,000',
     description:
@@ -142,7 +173,9 @@ export const EXPERIENCE = [
 
 export const PROJECTS: {
   icon: LucideIcon
+  accent: AccentName
   color: string
+  image: string
   title: string
   stack: string
   description: string
@@ -150,7 +183,10 @@ export const PROJECTS: {
 }[] = [
   {
     icon: Car,
-    color: 'text-cyan-400',
+    // color: 'text-cyan-400',
+    accent: 'cyan',
+    color: 'text-cyan-300',
+    image: '/images/portfolio/ride-hailing.svg',
     title: 'Ride-Hailing Platform',
     stack: 'Java · Spring Boot · Flutter · MySQL · AWS EC2/RDS · WebSockets · Docker',
     description:
@@ -158,7 +194,10 @@ export const PROJECTS: {
   },
   {
     icon: ShieldCheck,
-    color: 'text-indigo-400',
+    // color: 'text-indigo-400',
+    accent: 'pink',
+    color: 'text-pink-300',
+    image: '/images/portfolio/financial-gateway.svg',
     title: 'Financial Gateway',
     stack: 'Java · React.js · Express · AWS Lambda · API Gateway · Terraform',
     description:
@@ -166,7 +205,10 @@ export const PROJECTS: {
   },
   {
     icon: Video,
-    color: 'text-purple-400',
+    // color: 'text-purple-400',
+    accent: 'amber',
+    color: 'text-amber-300',
+    image: '/images/portfolio/video-suite.svg',
     title: 'Video Suite',
     stack: 'Node.js · TypeScript · Spring Boot · WebRTC · AWS EC2 · Jest',
     description:
@@ -178,6 +220,7 @@ export const PROJECTS: {
 export const SAMPLE_PROJECT = {
   name: 'NexaFlow — Business Website',
   route: '/business_model',
+  image: '/images/portfolio/sample-preview.svg',
   summary:
     'A complete, animated business website I built as a sample for clients: hero, services, work showcase, testimonials, and a working enquiry form that stores leads in a database and opens WhatsApp in one tap.',
   stack: ['React', 'TypeScript', 'Vite', 'Framer Motion', 'Supabase', 'Cloudflare Pages'],

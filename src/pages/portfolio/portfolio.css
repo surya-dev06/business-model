@@ -368,3 +368,212 @@
 }
 
 }
+
+/* ==========================================================================
+   PREMIUM STATIC THEME  — added at the END of portfolio.css
+   • solid professional background (no animated canvas / orbs / particles)
+   • multi-bright accents: cyan · violet · pink · amber · emerald
+   • motion only on: scroll-reveal, card hover, button hover, transitions
+   ========================================================================== */
+@layer components{
+
+/* ---- tokens ---- */
+.pf-root{
+  --bg:#0b1020;
+  --surface:#121a33;
+  --surface-2:#0e1530;
+  --line:rgba(148,163,184,.16);
+  --cyan:#22d3ee; --violet:#8b5cf6; --pink:#ec4899; --amber:#f59e0b; --emerald:#10b981;
+  --accent:var(--cyan);
+  background:var(--bg);
+  color:#cbd5e1;
+}
+.pf-root h1,.pf-root h2,.pf-root h3,.pf-root h4,.pf-root .font-display{ letter-spacing:-.02em; }
+.pf-root h1,.pf-root h2,.pf-root h3,.pf-root h4{ color:#f8fafc; }
+.pf-root ::selection{ background:var(--pink); color:#fff; }
+
+::-webkit-scrollbar-track{ background:#0b1020; }
+::-webkit-scrollbar-thumb:hover{ background:linear-gradient(#8b5cf6,#ec4899); }
+
+/* per-card accent colour (set from the TSX: acc-cyan, acc-pink …) */
+.pf-root .acc-cyan{ --accent:var(--cyan); }
+.pf-root .acc-violet{ --accent:var(--violet); }
+.pf-root .acc-pink{ --accent:var(--pink); }
+.pf-root .acc-amber{ --accent:var(--amber); }
+.pf-root .acc-emerald{ --accent:var(--emerald); }
+
+/* ---- navbar ---- */
+.pf-root .nav-shell{ background:rgba(11,16,32,.86); border-bottom:1px solid var(--line); }
+.pf-root .nav-shell.scrolled{ background:rgba(11,16,32,.96); box-shadow:0 10px 30px -18px rgba(0,0,0,.8); }
+.pf-root .nav-link::after{ background:linear-gradient(90deg,#22d3ee,#8b5cf6,#ec4899); }
+
+/* ---- static headline gradient (no shimmer loop) ---- */
+.pf-root .gradient-text{
+  background:linear-gradient(110deg,#22d3ee 0%,#8b5cf6 38%,#ec4899 70%,#f59e0b 100%);
+  -webkit-background-clip:text; background-clip:text; -webkit-text-fill-color:transparent;
+  animation:none;
+}
+
+/* ---- remove looping decorations ---- */
+.pf-root .pulse-dot{ animation:none; box-shadow:0 0 0 4px rgba(16,185,129,.22); background:#10b981; }
+.pf-root .float-slow{ animation:none; }
+.pf-root .demo-bar{ animation:none; }
+
+/* ---- cards ---- */
+.pf-root .card{
+  background:var(--surface);
+  backdrop-filter:none; -webkit-backdrop-filter:none;
+  border:1px solid var(--line);
+  box-shadow:0 14px 34px -22px rgba(0,0,0,.75);
+}
+.pf-root .card::before{
+  background:radial-gradient(520px circle at var(--mx,50%) var(--my,50%),
+             color-mix(in srgb,var(--accent) 16%,transparent), transparent 45%);
+}
+.pf-root .card:hover{
+  border-color:color-mix(in srgb,var(--accent) 60%,transparent);
+  box-shadow:0 30px 60px -28px color-mix(in srgb,var(--accent) 70%,transparent);
+}
+.pf-root .reveal.in-view.card:hover{ transform:translateY(-8px); }
+
+/* stat cards + skill chips get a rotating bright colour */
+.pf-root .card-static:nth-child(5n+1){ --accent:var(--cyan); }
+.pf-root .card-static:nth-child(5n+2){ --accent:var(--violet); }
+.pf-root .card-static:nth-child(5n+3){ --accent:var(--pink); }
+.pf-root .card-static:nth-child(5n+4){ --accent:var(--amber); }
+.pf-root .card-static:nth-child(5n+5){ --accent:var(--emerald); }
+.pf-root .card-static{ border-top:2px solid color-mix(in srgb,var(--accent) 70%,transparent); }
+
+.pf-root .chip{ --accent:var(--violet); }
+.pf-root .chip:nth-child(5n+1){ --accent:var(--cyan); }
+.pf-root .chip:nth-child(5n+2){ --accent:var(--violet); }
+.pf-root .chip:nth-child(5n+3){ --accent:var(--pink); }
+.pf-root .chip:nth-child(5n+4){ --accent:var(--amber); }
+.pf-root .chip:nth-child(5n+5){ --accent:var(--emerald); }
+.pf-root .chip:hover{
+  border-color:var(--accent);
+  background:color-mix(in srgb,var(--accent) 14%,transparent);
+  color:#fff;
+}
+
+/* ---- card images ---- */
+.pf-root .card-media{ position:relative; aspect-ratio:16/10; overflow:hidden; background:#0b1020; }
+.pf-root .card-media img{
+  width:100%; height:100%; object-fit:cover; display:block;
+  transition:transform .9s cubic-bezier(.16,1,.3,1);
+}
+.pf-root .card:hover .card-media img{ transform:scale(1.07); }
+.pf-root .card-media::after{
+  content:''; position:absolute; inset:0; pointer-events:none;
+  background:linear-gradient(180deg,transparent 55%,rgba(11,16,32,.8));
+}
+.pf-root .media-icon{
+  position:absolute; left:18px; bottom:14px; z-index:2;
+  width:46px; height:46px; border-radius:14px; border:1px solid;
+  display:flex; align-items:center; justify-content:center;
+  background:rgba(11,16,32,.78); backdrop-filter:blur(6px);
+  transition:transform .4s cubic-bezier(.16,1,.3,1);
+}
+.pf-root .card:hover .media-icon{ transform:translateY(-4px) rotate(-6deg) scale(1.06); }
+
+/* ---- buttons (white text on a deep multi-colour gradient = readable) ---- */
+.pf-root .btn-primary{
+  background:linear-gradient(120deg,#2563eb,#7c3aed 50%,#db2777);
+  background-size:200% 100%;
+  color:#fff;
+  box-shadow:0 14px 30px -14px rgba(124,58,237,.8);
+}
+.pf-root .btn-primary:hover{ box-shadow:0 20px 40px -16px rgba(219,39,119,.75); }
+.pf-root .btn-ghost{ border:1px solid rgba(148,163,184,.3); background:rgba(18,26,51,.6); }
+.pf-root .btn-ghost:hover{ border-color:var(--cyan); background:rgba(34,211,238,.08); }
+.pf-root .spinner{ border:2px solid rgba(255,255,255,.35); border-top-color:#fff; }
+
+/* ---- form fields ---- */
+.pf-root .field{ background:var(--surface-2); border:1px solid #2a3562; color:#f1f5f9; }
+.pf-root .field::placeholder{ color:#64748b; }
+.pf-root .field:focus{
+  border-color:var(--violet);
+  box-shadow:0 0 0 4px rgba(139,92,246,.22);
+  background:#0c1229;
+}
+.pf-root select.field option{ background:#0e1530; color:#f1f5f9; }
+.pf-root .drop-zone{ border-color:#2a3562; background:var(--surface-2); }
+.pf-root .drop-zone:hover{ border-color:var(--violet); background:rgba(139,92,246,.07); }
+.pf-root .drop-zone.dragover{ border-color:var(--cyan); background:rgba(34,211,238,.1); box-shadow:0 0 0 6px rgba(34,211,238,.08); }
+
+/* ---- timeline ---- */
+.pf-root .timeline-line{
+  background:linear-gradient(180deg,#22d3ee,#8b5cf6,#ec4899,#f59e0b);
+  box-shadow:none;
+}
+
+/* ---- sample project preview (real image instead of fake blocks) ---- */
+.pf-root .demo-frame{
+  border:1px solid var(--line);
+  background:var(--surface);
+  box-shadow:0 30px 70px -34px rgba(0,0,0,.85);
+  transform:none;
+}
+.pf-root .demo-frame:hover{
+  transform:translateY(-8px);
+  box-shadow:0 40px 80px -30px rgba(139,92,246,.55);
+}
+.pf-root .demo-img{ transition:transform .9s cubic-bezier(.16,1,.3,1); }
+.pf-root .demo-frame:hover .demo-img{ transform:scale(1.04); }
+
+/* ---- SUCCESS CARD (shown after the contact form is sent) ---- */
+.pf-root.pf-portal{ position:fixed; inset:0; z-index:200; min-height:0; overflow:visible; background:transparent; }
+.pf-root .success-overlay{
+  position:absolute; inset:0; display:flex; align-items:center; justify-content:center; padding:20px;
+  background:rgba(5,8,20,.72); backdrop-filter:blur(6px);
+  animation:fadeIn .35s ease both;
+}
+.pf-root .success-card{
+  position:relative; width:100%; max-width:460px; overflow:hidden;
+  background:var(--surface); border:1px solid rgba(255,255,255,.12); border-radius:24px;
+  box-shadow:0 40px 90px -30px rgba(139,92,246,.6);
+  animation:cardPop .6s cubic-bezier(.16,1,.3,1) both;
+}
+.pf-root .success-close{
+  position:absolute; top:12px; right:12px; z-index:3; width:32px; height:32px; border-radius:10px;
+  display:flex; align-items:center; justify-content:center;
+  background:rgba(11,16,32,.7); color:#e2e8f0; transition:background .25s, transform .25s;
+}
+.pf-root .success-close:hover{ background:rgba(236,72,153,.85); transform:rotate(90deg); }
+.pf-root .success-media{ position:relative; aspect-ratio:16/9; }
+.pf-root .success-media img,.pf-root .success-media svg{ position:absolute; inset:0; width:100%; height:100%; object-fit:cover; }
+.pf-root .success-tick{
+  fill:none; stroke:#fff; stroke-width:14; stroke-linecap:round; stroke-linejoin:round;
+  stroke-dasharray:120; stroke-dashoffset:120; animation:drawTick .6s .35s cubic-bezier(.65,0,.35,1) forwards;
+}
+.pf-root .success-body{ padding:22px 26px 26px; text-align:center; animation:riseIn .6s .2s cubic-bezier(.16,1,.3,1) both; }
+.pf-root .success-body h3{ font-family:'Sora',sans-serif; font-size:1.35rem; font-weight:700; color:#f8fafc; }
+.pf-root .success-body p{ margin-top:10px; font-size:.9rem; line-height:1.65; color:#cbd5e1; }
+.pf-root .success-body strong{ color:#fff; }
+.pf-root .success-warning{ color:#fcd34d !important; font-size:.78rem !important; }
+.pf-root .success-meta{ display:flex; flex-wrap:wrap; gap:10px; justify-content:center; margin:18px 0; }
+.pf-root .success-time,.pf-root .success-ref{
+  display:inline-flex; align-items:center; gap:6px; padding:6px 12px; border-radius:999px;
+  font-family:'JetBrains Mono',monospace; font-size:.72rem;
+}
+.pf-root .success-time{ background:rgba(16,185,129,.14); border:1px solid rgba(16,185,129,.4); color:#6ee7b7; }
+.pf-root .success-ref{ background:rgba(139,92,246,.14); border:1px solid rgba(139,92,246,.4); color:#c4b5fd; }
+.pf-root .success-btn{ width:100%; padding:.8rem 1rem; border-radius:14px; font-size:.95rem; }
+.pf-root .success-timer{ height:4px; background:rgba(255,255,255,.08); }
+.pf-root .success-timer i{
+  display:block; height:100%; transform-origin:left;
+  background:linear-gradient(90deg,#22d3ee,#8b5cf6,#ec4899,#f59e0b);
+  animation:timerShrink 9s linear forwards;
+}
+.pf-root .success-card:hover .success-timer i{ animation-play-state:paused; }
+
+@keyframes fadeIn{ from{ opacity:0 } to{ opacity:1 } }
+@keyframes cardPop{ from{ opacity:0; transform:translateY(30px) scale(.9) } to{ opacity:1; transform:none } }
+@keyframes riseIn{ from{ opacity:0; transform:translateY(16px) } to{ opacity:1; transform:none } }
+@keyframes drawTick{ to{ stroke-dashoffset:0 } }
+@keyframes timerShrink{ from{ transform:scaleX(1) } to{ transform:scaleX(0) } }
+
+@media (prefers-reduced-motion: reduce){
+  .pf-root .success-tick{ stroke-dashoffset:0; }
+}
+}

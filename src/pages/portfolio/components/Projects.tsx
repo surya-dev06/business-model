@@ -21,14 +21,23 @@ export function Projects() {
               <Reveal
                 key={p.title}
                 delay={0.04 + i * 0.08}
-                className={`card p-6 sm:p-7 flex flex-col ${p.wide ? 'sm:col-span-2 lg:col-span-1' : ''}`}
+                // className={`card p-6 sm:p-7 flex flex-col ${p.wide ? 'sm:col-span-2 lg:col-span-1' : ''}`}
+                className={`card acc-${p.accent} flex flex-col ${p.wide ? 'sm:col-span-2 lg:col-span-1' : ''}`}
               >
-                <div className={`${p.color} mb-4 float-slow`} style={{ animationDelay: `${-1.5 * i}s` }}>
-                  <Icon size={32} />
+                {/* <div className={`${p.color} mb-4 float-slow`} style={{ animationDelay: `${-1.5 * i}s` }}>
+                  <Icon size={32} /> */}
+                <div className="card-media">
+                  <img src={p.image} alt={`${p.title} preview`} width={800} height={500} loading="lazy" />
+                  <span className={`media-icon ${p.color}`}><Icon size={22} /></span>
                 </div>
-                <h4 className="font-display text-lg sm:text-xl font-bold mb-2 text-slate-100">{p.title}</h4>
+                <div className="p-6 sm:p-7 flex flex-col flex-1">
+                  <h4 className="font-display text-lg sm:text-xl font-bold mb-2 text-slate-50">{p.title}</h4>
+                  <p className="text-[11px] font-mono text-slate-400 mb-4 leading-relaxed">{p.stack}</p>
+                  <p className="text-sm text-slate-300 leading-relaxed">{p.description}</p>
+                </div>
+                {/* <h4 className="font-display text-lg sm:text-xl font-bold mb-2 text-slate-100">{p.title}</h4>
                 <p className="text-[11px] font-mono text-slate-400 mb-4 leading-relaxed">{p.stack}</p>
-                <p className="text-sm text-slate-300 leading-relaxed">{p.description}</p>
+                <p className="text-sm text-slate-300 leading-relaxed">{p.description}</p> */}
               </Reveal>
             )
           })}

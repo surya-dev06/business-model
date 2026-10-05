@@ -1,6 +1,9 @@
 import { useEffect, useRef } from 'react'
-import type { BackgroundVariant } from './AnimatedBackground'
+// import type { BackgroundVariant } from './AnimatedBackground'
 import './ScrollProgress.css'
+
+type BackgroundVariant = 'portfolio' | 'business'
+
 
 /** Thin gradient bar at the top of the page showing scroll progress. */
 export function ScrollProgress({ variant = 'portfolio' }: { variant?: BackgroundVariant }) {

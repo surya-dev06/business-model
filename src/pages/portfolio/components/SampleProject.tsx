@@ -32,7 +32,7 @@ export function SampleProject() {
                   <span className="w-2 h-2 rounded-full bg-slate-600" />
                   <span className="mx-auto text-[11px] font-mono text-slate-500">suryadevs.in{P.route}</span>
                 </div>
-                <div className="demo-art p-6 sm:p-9 aspect-[1.28]">
+                {/* <div className="demo-art p-6 sm:p-9 aspect-[1.28]">
                   <div className="text-[10px] tracking-[.2em] font-semibold" style={{ color: '#9cff57' }}>YOUR BRAND</div>
                   <div className="font-display text-2xl sm:text-4xl font-bold leading-none mt-3">
                     Launch a website<br /><span style={{ color: '#8f73ff' }}>people remember.</span>
@@ -44,7 +44,15 @@ export function SampleProject() {
                     <i className="demo-tile h-14 sm:h-20 block float-slow" style={{ animationDelay: '-2s' }} />
                     <i className="demo-tile h-14 sm:h-20 block float-slow" style={{ animationDelay: '-4s' }} />
                   </div>
-                </div>
+                </div> */}
+                 <img
+                  src={P.image}
+                  alt={`${P.name} homepage preview`}
+                  width={800}
+                  height={500}
+                  loading="lazy"
+                  className="demo-img block w-full h-auto aspect-[1.6] object-cover"
+                />
                 <div className="absolute inset-x-0 bottom-0 flex justify-center pb-4 opacity-0 translate-y-2 group-hover:opacity-100 group-hover:translate-y-0 transition-all duration-300">
                   <span className="inline-flex items-center gap-2 px-4 py-2 rounded-full bg-slate-950/85 border border-purple-400/40 text-xs text-purple-200 backdrop-blur">
                     <MousePointerClick size={14} /> Click to open live demo

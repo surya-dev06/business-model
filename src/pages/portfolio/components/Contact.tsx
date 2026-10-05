@@ -1,9 +1,11 @@
 import { useEffect, useRef, useState } from 'react'
 import type { ChangeEvent, DragEvent, FormEvent, KeyboardEvent } from 'react'
 import type { SupabaseClient } from '@supabase/supabase-js'
-import { Check, CircleAlert, CloudUpload, Lock, Paperclip, TriangleAlert, X, Zap } from 'lucide-react'
+// import { Check, CircleAlert, CloudUpload, Lock, Paperclip, TriangleAlert, X, Zap } from 'lucide-react'
+import { CircleAlert, CloudUpload, Lock, Paperclip, TriangleAlert, X, Zap } from 'lucide-react'
 import { portfolioSupabase } from '../../../lib/portfolioSupabase'
 import { Reveal } from './Reveal'
+import { SuccessCard } from './SuccessCard'
 import { CONTACT, SERVICE_OPTIONS, SERVICE_OPTION_LABELS } from '../data'
 
 const TABLE_NAME = 'inquiries'
@@ -16,7 +18,8 @@ const FILE_ACCEPT =
 type Status =
   | { type: 'error'; message: string }
   | { type: 'failed'; message: string }
-  | { type: 'success'; name: string; email: string; fileCount: number; warning: string; ref: string }
+  | { type: 'success'; name: string; email: string; fileCount: number; warning: string; ref: string; time: string }
+  // | { type: 'success'; name: string; email: string; fileCount: number; warning: string; ref: string }
 
 const errMessage = (e: unknown) =>
   e instanceof Error ? e.message : (e as { message?: string } | null)?.message || 'Unknown error'
@@ -52,7 +55,7 @@ export function Contact({ service, onServiceChange }: Props) {
   const statusRef = useRef<HTMLDivElement>(null)
 
   useEffect(() => {
-    if (status) statusRef.current?.scrollIntoView({ behavior: 'smooth', block: 'nearest' })
+    if (status && status.type !== 'success') statusRef.current?.scrollIntoView({ behavior: 'smooth', block: 'nearest' })
   }, [status])
 
   function addFiles(list: FileList | File[]) {
@@ -136,6 +139,10 @@ export function Contact({ service, onServiceChange }: Props) {
         fileCount: fileUrls.length,
         warning,
         ref: Date.now().toString().slice(-8),
+          time: new Date().toLocaleString('en-IN', {
+          day: '2-digit', month: 'short', year: 'numeric',
+          hour: '2-digit', minute: '2-digit', second: '2-digit', hour12: true,
+        }),
       })
       setName(''); setEmail(''); setMessage(''); setFiles([]); setFileError('')
       onServiceChange(SERVICE_OPTIONS[0])
@@ -268,26 +275,35 @@ export function Contact({ service, onServiceChange }: Props) {
               )}
 
               {status?.type === 'success' && (
-                <div className="banner-in rounded-2xl p-5 text-sm leading-relaxed bg-emerald-500/10 border border-emerald-500/35 text-emerald-300 flex items-start gap-3">
-                  <div className="w-10 h-10 shrink-0 rounded-xl bg-emerald-500/20 border border-emerald-500/40 flex items-center justify-center text-emerald-300">
-                    <Check size={18} />
-                  </div>
-                  <div>
-                    <p className="font-bold text-emerald-200 text-base mb-1">Proposal request sent successfully! 🎉</p>
-                    <p className="text-emerald-200/85 text-[13px] leading-relaxed">
-                      Thank you, <strong>{status.name}</strong>. I've received your requirements
-                      {status.fileCount > 0 && <> along with <strong>{status.fileCount} attachment{status.fileCount > 1 ? 's' : ''}</strong></>}.
-                      {' '}I'll review everything and get back to you at <strong>{status.email}</strong> within{' '}
-                      <strong className="text-emerald-100">12–24 hours</strong>.
-                    </p>
-                    {status.warning && (
-                      <p className="text-amber-300 text-xs mt-2 flex items-start gap-1.5">
-                        <TriangleAlert size={13} className="mt-0.5 shrink-0" /> {status.warning}
-                      </p>
-                    )}
-                    <p className="text-emerald-200/60 text-[11px] mt-2 font-mono">Ref: #{status.ref}</p>
-                  </div>
-                </div>
+                // <div className="banner-in rounded-2xl p-5 text-sm leading-relaxed bg-emerald-500/10 border border-emerald-500/35 text-emerald-300 flex items-start gap-3">
+                //   <div className="w-10 h-10 shrink-0 rounded-xl bg-emerald-500/20 border border-emerald-500/40 flex items-center justify-center text-emerald-300">
+                //     <Check size={18} />
+                //   </div>
+                //   <div>
+                //     <p className="font-bold text-emerald-200 text-base mb-1">Proposal request sent successfully! 🎉</p>
+                //     <p className="text-emerald-200/85 text-[13px] leading-relaxed">
+                //       Thank you, <strong>{status.name}</strong>. I've received your requirements
+                //       {status.fileCount > 0 && <> along with <strong>{status.fileCount} attachment{status.fileCount > 1 ? 's' : ''}</strong></>}.
+                //       {' '}I'll review everything and get back to you at <strong>{status.email}</strong> within{' '}
+                //       <strong className="text-emerald-100">12–24 hours</strong>.
+                //     </p>
+                //     {status.warning && (
+                //       <p className="text-amber-300 text-xs mt-2 flex items-start gap-1.5">
+                //         <TriangleAlert size={13} className="mt-0.5 shrink-0" /> {status.warning}
+                //       </p>
+                //     )}
+                //     <p className="text-emerald-200/60 text-[11px] mt-2 font-mono">Ref: #{status.ref}</p>
+                //   </div>
+                // </div>
+                <SuccessCard
+                  name={status.name}
+                  email={status.email}
+                  time={status.time}
+                  refId={status.ref}
+                  fileCount={status.fileCount}
+                  warning={status.warning}
+                  onClose={() => setStatus(null)}
+                />
               )}
             </div>
 

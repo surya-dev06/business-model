@@ -20,29 +20,28 @@ export function Services({ onSelectService }: { onSelectService: (service: strin
             const a = ACCENTS[s.accent]
             const Icon = s.icon
             return (
-              <Reveal key={s.title} from={s.side === 'left' ? 'left' : 'right'} delay={i * 0.12} className="card p-6 sm:p-8 flex flex-col justify-between">
-                <div>
-                  <div
-                    className={`w-14 h-14 rounded-2xl border flex items-center justify-center mb-6 float-slow ${a.iconBox}`}
-                    style={{ animationDelay: `${-2 * i}s` }}
-                  >
-                    <Icon size={26} />
-                  </div>
-                  <h3 className="font-display text-xl sm:text-2xl font-bold text-slate-100">{s.title}</h3>
-                  <div className={`text-3xl sm:text-4xl font-extrabold my-4 font-display ${a.price}`}>
-                    {s.price}{' '}
-                    <span className="text-xs font-normal text-slate-400 font-sans">/ project</span>
-                  </div>
-                  <p className="text-slate-400 text-sm mb-6 leading-relaxed">{s.description}</p>
-                  <ul className="space-y-3 text-sm text-slate-300 mb-8">
-                    {s.features.map(f => (
-                      <li key={f} className="flex items-start gap-3">
-                        <CircleCheck size={16} className={`mt-0.5 ${a.check}`} />
-                        <span>{f}</span>
-                      </li>
-                    ))}
-                  </ul>
+              <Reveal key={s.title} from={s.side === 'left' ? 'left' : 'right'} delay={i * 0.12} className={`card acc-${s.accent} flex flex-col`}>
+                <div className="card-media">
+                  <img src={s.image} alt={`${s.title} illustration`} width={800} height={500} loading="lazy" />
+                  <span className={`media-icon ${a.iconBox}`}><Icon size={22} /></span>
                 </div>
+                <div className="p-6 sm:p-8 flex flex-col flex-1 justify-between">
+                  <div>
+                    <h3 className="font-display text-xl sm:text-2xl font-bold text-slate-50">{s.title}</h3>
+                    <div className={`text-3xl sm:text-4xl font-extrabold my-4 font-display ${a.price}`}>
+                      {s.price}{' '}
+                      <span className="text-xs font-normal text-slate-400 font-sans">/ project</span>
+                    </div>
+                    <p className="text-slate-400 text-sm mb-6 leading-relaxed">{s.description}</p>
+                    <ul className="space-y-3 text-sm text-slate-300 mb-8">
+                      {s.features.map(f => (
+                        <li key={f} className="flex items-start gap-3">
+                          <CircleCheck size={16} className={`mt-0.5 ${a.check}`} />
+                          <span>{f}</span>
+                        </li>
+                      ))}
+                    </ul>
+                  </div>
                 <a
                   href="#contact"
                   onClick={() => onSelectService(s.service)}
@@ -50,6 +49,7 @@ export function Services({ onSelectService }: { onSelectService: (service: strin
                 >
                   {s.cta}
                 </a>
+                </div>
               </Reveal>
             )
           })}
